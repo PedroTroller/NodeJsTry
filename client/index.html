@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.css">
+    </head>
+    <body>
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Lets chat</h3>
+            </div>
+            <div id="chat_box" class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <form class="form-inline">
+                    <input id="pseudo" type="text" class="input-small"  placeholder="Pseudo">
+                    <input id="message" type="text" class="input-big"    placeholder="Votre message">
+                    <a href="#" class="sendButton btn btn-primary">Envoyer</a>
+                </form>
+            </div>
+        </div>
+    </body>
+    <script src="http://localhost:8800/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+
+    <script type="text/template" id="message-template">
+        <p>
+            <span class="label label-<%= type %>">
+                <%= pseudo %>
+            </span>
+            <%= message %>
+        </p>
+    </script>
+
+</html>
