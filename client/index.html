@@ -6,9 +6,18 @@
     <body>
         <div class="modal">
             <div class="modal-header">
-                <h3>Lets chat</h3>
+                <h3>Let's chat</h3>
             </div>
-            <div id="chat_box" class="modal-body">
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div id="chat_list" class="span2">
+                            <!--Sidebar content-->
+                        </div>
+                        <div id="chat_box" class="span10">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <form class="form-inline">
@@ -32,6 +41,14 @@
                 <%= pseudo %>
             </span>
             <%= message %>
+        </p>
+    </script>
+
+    <script type="text/template" id="client-template">
+        <p>
+            <span class="label label-success">
+                <%= pseudo %>
+            </span>
         </p>
     </script>
 

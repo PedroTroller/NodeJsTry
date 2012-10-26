@@ -1,15 +1,30 @@
-var app = require('http').createServer(handler)
-  , io  = require('socket.io').listen(app)
-  , _   = require('underscore')
-  , fs  = require('fs')
+var app         = require('http').createServer(handler)
+  , io          = require('socket.io').listen(app)
+  , _           = require('underscore')
+  , Backbone    = require('backbone')
+  , fs          = require('fs')
 
 app.listen(8800);
 
 function handler (req, res) {}
 
+var Client = Backbone.Model.extend({});
+
+var ClientList = Backbone.Collection.extend({
+    model: Client
+});
+
+var clients = new ClientList();
+
+clients.bind('add remove change', function(){
+    io.sockets.emit('clients', clients.toJSON());
+});
+
 io.sockets.on('connection', function (socket) {
 
-    io.sockets.emit('notice', { message: 'New connection' });
+    clients.add(new Client({ id: socket.id, connected: true, pseudo: 'Anonymous' }));
+
+    console.log(socket.id);
 
     socket.on('message', function (data) {
         if(data.message != ''){
@@ -24,8 +39,12 @@ io.sockets.on('connection', function (socket) {
         io.sockets.emit('notice', data);
     });
 
+    socket.on('pseudo', function (data) {
+        clients.get(socket.id).set({ pseudo: data.pseudo });
+    });
+
     socket.on('disconnect', function () {
-        io.sockets.emit('notice', { message: 'Disconnected' });
+        clients.get(socket.id).set({connected: false});
     });
 
 });
